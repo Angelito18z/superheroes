@@ -1,3 +1,3 @@
 export const environments = {
-    baseURL: 'http://daniloviu.com'
+    baseURL: 'http://angelrivera.com'
 }
