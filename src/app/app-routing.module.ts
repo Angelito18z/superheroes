@@ -6,6 +6,11 @@ import path from 'node:path';
 //Definir las rutas principales de la aplicación
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'heroes',
+    pathMatch: 'full' //asegura que la redirecciión solo ocurra si la ruta esta completamente vacía
+  },
+  {
     path: 'auth', //Ruta padre para autenticación
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
     //Lazy loading carga el módulo de autenticación solo cuando se accede a auth
@@ -18,11 +23,6 @@ const routes: Routes = [
   {
     path: '404', //Ruta para la página error 404
     component: Error404PageComponent,
-  },
-  {
-    path: '',
-    redirectTo: 'heores',
-    pathMatch: 'full' //asegura que la redirecciión solo ocurra si la ruta esta completamente vacía
   },
   {
     path: '**', //ruta comodin, se usa cuando ninguna de las rutas anteriores coincide

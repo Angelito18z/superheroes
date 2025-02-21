@@ -3,11 +3,12 @@
       <mat-card-title>{{ hero.superhero }}</mat-card-title>
       <mat-card-subtitle>{{ hero.alter_ego }}</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
 
+    <img mat-card-image [src]="hero | heroImage" [alt]="hero.superhero">
+    
     <mat-card-content>
       <p><strong>Publisher:</strong> {{ hero.publisher }}</p>
-      <p><strong>First Appearance:</strong> {{ hero.firts_appearence }}</p>
+      <p><strong>First Appearance:</strong> {{ hero.first_appearance }}</p>
       <p><strong>Characters:</strong> {{ hero.characters }}</p>
 
       <br>
