@@ -1,44 +1,50 @@
 <mat-card class="form-card">
     <h2>Agregar Superhéroe</h2>
   
-    <form>
+    <form [formGroup]="heroForm" >
       <!-- Superhéroe -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Superhéroe</mat-label>
-        <input matInput placeholder="Ej: Spider-Man" required>
+        <input matInput placeholder="Ej: Spider-Man" required formControlName="superhero">
       </mat-form-field>
   
       <!-- Editorial -->
-      <mat-form-field appearance="outline" class="full-width">
+       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Editorial</mat-label>
-        <mat-select>
-          <mat-option value="DC Comics">DC Comics</mat-option>
-          <mat-option value="Marvel Comics">Marvel Comics</mat-option>
-          <mat-option value="Dark Horse">Dark Horse</mat-option>
-          <mat-option value="Image Comics">Image Comics</mat-option>
-        </mat-select>
+        <input matInput placeholder="DC COMICS" required formControlName="publisher">
       </mat-form-field>
   
       <!-- Alter Ego -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Alter Ego</mat-label>
-        <input matInput placeholder="Ej: Peter Parker" required>
+        <input matInput placeholder="Ej: Peter Parker" required formControlName="alter_ego">
       </mat-form-field>
   
       <!-- Primera Aparición -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Primera Aparición</mat-label>
-        <input matInput placeholder="Ej: Amazing Fantasy #15" required>
+        <input matInput placeholder="Ej: Amazing Fantasy #15" required formControlName="first_appareance">
       </mat-form-field>
   
       <!-- Personajes -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Personajes</mat-label>
-        <input matInput placeholder="Ej: Peter Parker, Spider-Man" required>
+        <input matInput placeholder="Ej: Peter Parker, Spider-Man" required formControlName="characters">
       </mat-form-field>
   
+    <!-- URL de la Imagen -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>URL de la Imagen</mat-label>
+      <input matInput placeholder="Ej: https://example.com/hero-image.jpg" required formControlName="alt_img">
+    </mat-form-field>
+
       <!-- Botón Guardar -->
-      <button mat-raised-button color="primary">Guardar</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()">Guardar</button>
     </form>
+
+
+    <mat-card>
+      <img [src]="currentHero | heroImage" alt="Imagen del hero" mat-card-image>
+    </mat-card>
   </mat-card>
   
