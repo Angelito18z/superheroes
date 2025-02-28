@@ -3,6 +3,7 @@ import { Hero } from '../../interfaces/hero.interface';
 import { HeoresService } from '../../services/heroes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-hero-page',
@@ -25,6 +26,7 @@ constructor(
 
   private router:Router,
   //Inyecta Router para redirigir a otra página si el hero no existe
+  private location: Location
 ){  }
 
   ngOnInit(): void {
@@ -49,5 +51,7 @@ constructor(
       return;
     })
   }
-
+  goBack(): void {
+    this.location.back();
+  }
 }

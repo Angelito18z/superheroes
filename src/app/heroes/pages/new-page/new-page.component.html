@@ -1,1 +1,44 @@
-<p>new-page works!</p>
+<mat-card class="form-card">
+    <h2>Agregar Superhéroe</h2>
+  
+    <form>
+      <!-- Superhéroe -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Superhéroe</mat-label>
+        <input matInput placeholder="Ej: Spider-Man" required>
+      </mat-form-field>
+  
+      <!-- Editorial -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Editorial</mat-label>
+        <mat-select>
+          <mat-option value="DC Comics">DC Comics</mat-option>
+          <mat-option value="Marvel Comics">Marvel Comics</mat-option>
+          <mat-option value="Dark Horse">Dark Horse</mat-option>
+          <mat-option value="Image Comics">Image Comics</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Alter Ego -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Alter Ego</mat-label>
+        <input matInput placeholder="Ej: Peter Parker" required>
+      </mat-form-field>
+  
+      <!-- Primera Aparición -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Primera Aparición</mat-label>
+        <input matInput placeholder="Ej: Amazing Fantasy #15" required>
+      </mat-form-field>
+  
+      <!-- Personajes -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Personajes</mat-label>
+        <input matInput placeholder="Ej: Peter Parker, Spider-Man" required>
+      </mat-form-field>
+  
+      <!-- Botón Guardar -->
+      <button mat-raised-button color="primary">Guardar</button>
+    </form>
+  </mat-card>
+  

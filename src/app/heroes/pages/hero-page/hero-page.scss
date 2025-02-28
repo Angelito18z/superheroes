@@ -1,66 +1,86 @@
 .hero-card {
-    max-width: 500px;
-    margin: auto;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    overflow: hidden;
-  }
-  
-  .hero-header {
-    display: flex;
-    align-items: center;
-    padding: 16px;
-    background: linear-gradient(135deg, #3f51b5, #1a237e);
-    color: white;
-  }
-  
-  .hero-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 16px;
-    border: 3px solid white;
-  }
-  
-  .hero-info {
-    flex-grow: 1;
-  }
-  
-  .hero-info h2 {
-    margin: 0;
-    font-size: 1.5rem;
-  }
-  
-  .hero-info h4 {
-    margin: 4px 0;
-    font-weight: 300;
-    opacity: 0.9;
-  }
-  
-  .character-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 8px 0;
-  }
-  
-  .character-chip {
-    background: #673ab7;
-    color: white;
-    font-size: 0.9rem;
-    padding: 8px;
-    border-radius: 16px;
-  }
-  
-  mat-card-actions {
-    display: flex;
-    justify-content: flex-end;
-    padding: 16px;
-    gap: 8px;
-  }
-  
-  mat-icon {
-    margin-right: 4px;
-  }
-  
+  max-width: 700px; /* Más expandido */
+  margin: 40px auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  background-color: #2a2a2a; /* Gris oscuro en lugar de blanco */
+  color: #e0e0e0; /* Texto en gris claro */
+}
+
+.hero-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #3a3a3a; /* Un gris más oscuro */
+}
+
+.hero-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+  border: 2px solid #555; /* Borde gris medio */
+}
+
+.hero-info {
+  flex-grow: 1;
+}
+
+.hero-info h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #f0f0f0; /* Gris claro */
+}
+
+.hero-info h4 {
+  margin: 6px 0;
+  font-weight: 400;
+  color: #b0b0b0; /* Gris medio */
+}
+
+mat-divider {
+  margin: 12px 0;
+  background-color: #555; /* Gris oscuro */
+}
+
+mat-card-content {
+  padding: 16px 20px;
+}
+
+.character-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.character-chip {
+  background-color: #444; /* Gris oscuro */
+  color: #cfcfcf; /* Texto claro */
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 16px;
+  border: 1px solid #666; /* Borde gris medio */
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px;
+  gap: 12px;
+}
+
+button[mat-icon-button] {
+  color: #bbb; /* Gris claro */
+  transition: background-color 0.3s ease;
+}
+
+button[mat-icon-button]:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Ligero efecto de hover */
+}
+
+mat-icon {
+  margin-right: 4px;
+}
