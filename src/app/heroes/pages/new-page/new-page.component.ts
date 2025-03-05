@@ -1,5 +1,3 @@
-
-
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,7 +6,7 @@ import { Hero } from '../../interfaces/hero.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { filter,switchMap } from 'rxjs';
+import { filter, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-new-page',
@@ -23,21 +21,21 @@ export class NewPageComponent implements OnInit {
     superhero: new FormControl<string>('', { nonNullable: true }),
     publisher: new FormControl<string>(''),
     alter_ego: new FormControl(''),
-    first_appearance: new FormControl(''),  // Corregido de first_appareance a first_appearance
+    first_appearance: new FormControl(''),
     characters: new FormControl(''),
     alt_img: new FormControl(''),
   });
 
   private heroId: string | null = null;  // Variable para almacenar el ID del héroe
+  public formTitle: string = 'Agregar Superhéroe';  // Título por defecto
 
   constructor(
     private heroesService: HeoresService,
-    private route: ActivatedRoute, // Para obtener el ID del héroe desde la URL
-    private dialog: MatDialog  ,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
     private router: Router,
     private snackbar: MatSnackBar
-  )
-   {}
+  ) {}
 
   ngOnInit(): void {
     // Obtener el ID del héroe desde los parámetros de la URL
@@ -53,10 +51,11 @@ export class NewPageComponent implements OnInit {
             superhero: hero.superhero,
             publisher: hero.publisher,
             alter_ego: hero.alter_ego,
-            first_appearance: hero.first_appearance,  // Corregido de first_appareance a first_appearance
+            first_appearance: hero.first_appearance,
             characters: hero.characters,
             alt_img: hero.alt_img,
           });
+          this.formTitle = `Editando: ${hero.superhero}`;  // Cambiar título a 'Editando: Nombre del héroe'
         }
       });
     }
@@ -67,40 +66,75 @@ export class NewPageComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.heroForm.invalid) return;
+    // Verificar que el nombre del héroe no esté vacío
+    if (!this.currentHero.superhero) {
+      throw Error('El nombre del héroe es obligatorio');
+    }
 
-    if (this.currentHero.id) {
-      // Si existe el ID, estamos editando un héroe
+    // Validar que el héroe tenga un id si ya está siendo editado
+    if (!this.currentHero.id) {
+      // Si no tiene id, significa que estamos creando un nuevo héroe
+      this.heroesService.addHero(this.currentHero)
+        .subscribe(hero => {
+          console.log('Héroe creado:', hero);
+
+          // Abrir el diálogo de confirmación solo si el héroe fue guardado
+          const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            data: {
+              title: '¡Héroe Guardado!',
+              message: 'El héroe ha sido guardado exitosamente.',
+              action: null  // No tiene acción, solo un mensaje de éxito
+            }
+          });
+
+          // Cerrar el diálogo después de que se haya guardado el héroe
+          dialogRef.afterClosed().subscribe(() => {
+            console.log('Nuevo héroe creado y diálogo cerrado');
+          });
+        });
+    } else {
+      // Si tiene id, estamos editando un héroe existente
       this.heroesService.updateHero(this.currentHero)
         .subscribe(hero => {
           console.log('Héroe actualizado:', hero);
-          // Aquí puedes agregar lógica para mostrar un mensaje de éxito al usuario.
-        });
-    } else {
-      // Si no existe ID, estamos creando un nuevo héroe
-      this.heroesService.addHero(this.currentHero)
-        .subscribe(hero => {
-          console.log('Héroe agregado:', hero);
-          // Aquí puedes redirigir al usuario o mostrar un mensaje de éxito.
+
+          // Abrir el diálogo de confirmación solo si el héroe fue editado
+          const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            data: {
+              title: '¡Héroe Editado!',
+              message: 'El héroe ha sido editado exitosamente.',
+              action: null  // No tiene acción, solo un mensaje de éxito
+            }
+          });
+
+          // Cerrar el diálogo después de que se haya editado el héroe
+          dialogRef.afterClosed().subscribe(() => {
+            console.log('Edición completada y diálogo cerrado');
+          });
         });
     }
   }
 
-  onDeletedHero(){
-    if (! this.currentHero.id) throw Error('Hero is required');
-    const dialogRef = this.dialog.open(ConfirmDialogComponent,
-    {
-      data: this.heroForm.value
+  onDeletedHero() {
+    if (!this.currentHero.id) throw Error('Hero is required');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: '¿Estás seguro de eliminar al héroe?',
+        message: 'Esta acción no se puede deshacer.',
+        action: 'Eliminar'
+      }
     });
-
     dialogRef.afterClosed()
-    .pipe(
-      filter((result: boolean)=>result),
-  switchMap(()=> this.heroesService.deleteHero(this.currentHero.id)),
-)
-.subscribe(()=>{
-  this.router.navigate(['/heroes']);
-});
+      .pipe(
+        filter((result: boolean) => result),
+        switchMap(() => this.heroesService.deleteHero(this.currentHero.id)),
+      )
+      .subscribe(() => {
+        this.router.navigate(['/heroes']);
+      });
   }
-
+  onGoBack(): void {
+    // Navegar a la página anterior
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
 }

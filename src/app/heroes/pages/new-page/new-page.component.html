@@ -1,7 +1,9 @@
 <mat-card class="form-card">
-    <h2>Agregar Superhéroe</h2>
-  
-    <form [formGroup]="heroForm" >
+  <button mat-icon-button (click)="onGoBack()">
+    <mat-icon>arrow_back</mat-icon> 
+  </button>
+  <h2>{{ formTitle }}</h2>
+     <form [formGroup]="heroForm" >
       <!-- Superhéroe -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Superhéroe</mat-label>
@@ -23,7 +25,7 @@
       <!-- Primera Aparición -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Primera Aparición</mat-label>
-        <input matInput placeholder="Ej: Amazing Fantasy #15" required formControlName="first_appareance">
+        <input matInput placeholder="Ej: Amazing Fantasy #15" required formControlName="first_appearance">
       </mat-form-field>
   
       <!-- Personajes -->
@@ -40,8 +42,9 @@
 
       <!-- Botón Guardar -->
       <button mat-raised-button color="primary" (click)="onSubmit()">Guardar</button>
-      <button mat-raised-button color="primary" (click)="onDeletedHero()">Borrar</button>
-   
+    <!-- Botón Borrar, solo visible si estamos editando un héroe -->
+    <button *ngIf="currentHero.id" mat-raised-button color="warn" (click)="onDeletedHero()">Borrar</button>
+ 
     </form>
 
 

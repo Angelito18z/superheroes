@@ -11,9 +11,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrl: './confirm-dialog.component.scss'
 })
 export class ConfirmDialogComponent {
-constructor(  public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-  @Inject(MAT_DIALOG_DATA)public data: Hero){
-}
+
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { title: string, message: string, action?: string }
+  ) {}
 
 onNoClick():void{
 this.dialogRef.close(false);
