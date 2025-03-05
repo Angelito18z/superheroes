@@ -1,8 +1,14 @@
+
+
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HeoresService } from '../../services/heroes.service';
 import { Hero } from '../../interfaces/hero.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { filter,switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-new-page',
@@ -26,8 +32,12 @@ export class NewPageComponent implements OnInit {
 
   constructor(
     private heroesService: HeoresService,
-    private route: ActivatedRoute // Para obtener el ID del héroe desde la URL
-  ) {}
+    private route: ActivatedRoute, // Para obtener el ID del héroe desde la URL
+    private dialog: MatDialog  ,
+    private router: Router,
+    private snackbar: MatSnackBar
+  )
+   {}
 
   ngOnInit(): void {
     // Obtener el ID del héroe desde los parámetros de la URL
@@ -75,4 +85,22 @@ export class NewPageComponent implements OnInit {
         });
     }
   }
+
+  onDeletedHero(){
+    if (! this.currentHero.id) throw Error('Hero is required');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent,
+    {
+      data: this.heroForm.value
+    });
+
+    dialogRef.afterClosed()
+    .pipe(
+      filter((result: boolean)=>result),
+  switchMap(()=> this.heroesService.deleteHero(this.currentHero.id)),
+)
+.subscribe(()=>{
+  this.router.navigate(['/heroes']);
+});
+  }
+
 }

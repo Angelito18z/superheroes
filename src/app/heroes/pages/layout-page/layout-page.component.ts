@@ -10,9 +10,9 @@ import { url } from 'inspector';
 })
 export class LayoutPageComponent {
   public sidebarItems = [
-     { label: 'Listado', icon: 'label', url: '/.list' },
-     { label: 'Añadir', icon: 'add', url: '/.new-hero' },
-     { label: 'Buscar', icon: 'search', url: '/.search' },
+     { label: 'Listado', icon: 'label', url: '/heroes/list' },
+     { label: 'Añadir', icon: 'add', url: '/heroes/new-hero' },
+     { label: 'Buscar', icon: 'search', url: '/heroes/search' },
   ]
 
 }

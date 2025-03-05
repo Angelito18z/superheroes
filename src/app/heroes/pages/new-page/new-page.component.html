@@ -33,18 +33,22 @@
       </mat-form-field>
   
     <!-- URL de la Imagen -->
-    <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field appearance="outline">
       <mat-label>URL de la Imagen</mat-label>
       <input matInput placeholder="Ej: https://example.com/hero-image.jpg" required formControlName="alt_img">
     </mat-form-field>
 
       <!-- Botón Guardar -->
       <button mat-raised-button color="primary" (click)="onSubmit()">Guardar</button>
+      <button mat-raised-button color="primary" (click)="onDeletedHero()">Borrar</button>
+   
     </form>
 
 
+    
+
     <mat-card>
-      <img [src]="currentHero | heroImage" alt="Imagen del hero" mat-card-image>
+      <img [src]="currentHero | heroImage" alt="Imagen del héroe" mat-card-image style="width: 450px; height: auto; display: block; margin: auto;">
     </mat-card>
   </mat-card>
   
